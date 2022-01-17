@@ -1,14 +1,15 @@
-from fastapi import APIRouter
-from fastapi import Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from config.database import get_db
 from controllers.customer import CustomerController
 from models.customer import CustomerSchema, CustomerCreateSchema
+from controllers.security import oauth2_scheme
 
 router = APIRouter(
     prefix="/customers",
     tags=["Customers"],
+    dependencies=[Depends(oauth2_scheme)],
     responses={404: {"description": "Not found"}},
 )
 
@@ -40,7 +41,7 @@ async def update(customer: CustomerSchema,
 
 
 @router.post("/", response_model=CustomerCreateSchema)
-def create(customer: CustomerCreateSchema,
+async def create(customer: CustomerCreateSchema,
            db: Session = Depends(get_db)) -> CustomerSchema:
     controller = CustomerController(db)
     customer_db = controller.get_by_name_surname(customer)
