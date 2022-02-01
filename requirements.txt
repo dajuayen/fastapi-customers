@@ -6,3 +6,6 @@ python-jose
 cryptography
 passlib~=1.7.4
 bcrypt
+pytest~=6.2.5
+request~=2.27.1
+psycopg2-binary
