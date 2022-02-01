@@ -29,7 +29,7 @@ class Controller(ABC):
 
     @abstractmethod
     def create(self, schema: BaseModel) -> BaseModel:
-        db_object = self.in_cls(schema.dict())
+        db_object = self.in_cls(**schema.dict())
         assert isinstance(db_object, self.in_cls)
         self.db.add(db_object)
         self.db.commit()
