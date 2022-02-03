@@ -5,6 +5,7 @@ from config.database import Base
 
 
 class User(Base):
+    """User Class"""
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
@@ -15,24 +16,28 @@ class User(Base):
 
 
 class UserBaseSchema(BaseModel):
+    """UserBaseSchema Schema"""
     login: str
     role: str
 
     class Config:
+        # pylint: disable=missing-class-docstring
         orm_mode = False
 
 
-class UserCreateSchema(BaseModel):
-    login: str
+class UserCreateSchema(UserBaseSchema):
+    """UserCreateSchema Schema"""
     password: str
-    role: str
 
     class Config:
+        # pylint: disable=missing-class-docstring
         orm_mode = False
 
 
 class UserSchema(UserBaseSchema):
+    """UserSchema Schema"""
     id: int
 
     class Config:
+        # pylint: disable=missing-class-docstring
         orm_mode = True

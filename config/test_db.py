@@ -16,9 +16,12 @@ Base.metadata.create_all(bind=engine)
 
 
 def override_get_db():
+    """ Generates test database connection session.
+    Returns: Session
+    """
     try:
-        db = TestingSessionLocal()
-        UserController(db).create_admin_user()
-        yield db
+        session = TestingSessionLocal()
+        UserController(session).create_admin_user()
+        yield session
     finally:
-        db.close()
+        session.close()

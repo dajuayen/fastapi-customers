@@ -30,6 +30,11 @@ app.include_router(users.router)
 
 
 @app.get("/")
-def main(db: Session = Depends(get_db)):
-    UserController(db).create_admin_user()
+def main(session: Session = Depends(get_db)):
+    """ Root endpoint of the app
+    Args:
+        session: Session
+    Returns: response
+    """
+    UserController(session).create_admin_user()
     return RedirectResponse(url="/docs/")

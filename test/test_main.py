@@ -1,3 +1,4 @@
+"""Test Module. Main endpoint"""
 from fastapi.testclient import TestClient
 
 from config.database import get_db, Base
@@ -12,7 +13,7 @@ client = TestClient(app)
 
 
 def test_read_main():
+    """Test main endpoint"""
     response = client.get("/")
     assert response.status_code == 200
     assert response.request.path_url == "/docs"
-

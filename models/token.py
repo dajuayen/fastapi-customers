@@ -4,9 +4,13 @@ from pydantic import BaseModel
 
 
 class Token(BaseModel):
+    """Token Schema"""
+    # pylint: disable=too-few-public-methods
     access_token: str
     token_type: str
 
 
 class TokenData(BaseModel):
-    username: Optional[str] = None
+    """TokenData Schema"""
+    # pylint: disable=too-few-public-methods
+    login: Optional[str] = None
