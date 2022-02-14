@@ -63,7 +63,7 @@ async def update(user: UserSchema,
     return controller.update(user)
 
 
-@router.post("/", response_model=UserCreateSchema)
+@router.post("/", response_model=UserSchema)
 def create(user: UserCreateSchema,
            session: Session = Depends(get_db)) -> UserSchema:
     """Post /users

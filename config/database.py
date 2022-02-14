@@ -2,12 +2,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-from config.settings import Settings
+from config.settings import settings
 
-SQLALCHEMY_SQLITE_URL = "sqlite:///./sql_app.db"
+SQLALCHEMY_SQLITE_URL = f"sqlite:///{settings.path_base}/sql_app.db"
 SQLALCHEMY_POSTGRES_URL = "postgresql://admin:admin@localhost:5432/customers_db"
-
-settings = Settings()
 
 
 def _get_url(env):

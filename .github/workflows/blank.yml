@@ -34,7 +34,7 @@ jobs:
 
       - name: Run Pytest
         run: |
-          pytest
+          pytest test/*/*.py
 
       - name: Run Coverage
         run: |
