@@ -12,7 +12,7 @@ from config.database import Base, get_db
 from config.hasher import get_password_hash
 from config.settings import settings
 from main import app
-from models.customer import Customer
+from models.customer import Customer, CustomerSchema, CustomerCreateSchema
 from models.user import User, UserSchema, UserCreateSchema
 
 SQLALCHEMY_DATABASE_URL = f"sqlite:///{settings.path_base}/test.db"
@@ -165,8 +165,29 @@ def user():
 
 @pytest.fixture
 def new_user():
-    """Return a UserSchema with a new user's data"""
+    """Return a UserCreateSchema with a new user's data"""
     return UserCreateSchema(login="nuevo", role="user", password="1234")
+
+
+@pytest.fixture
+def customer1():
+    """Return a CustomerSchema with customer1's data"""
+    return CustomerSchema(name="primero", surname="customer",
+                          photo="primero.png", id=1)
+
+
+@pytest.fixture
+def customer3():
+    """Return a CustomerSchema with customer2's data"""
+    return CustomerSchema(name="tercero", surname="customer",
+                          photo="tercero.png", id=3)
+
+
+@pytest.fixture
+def new_customer():
+    """Return a CustomerCreateSchema with a new customer's data"""
+    return CustomerCreateSchema(name="nuevo", surname="customer",
+                          photo="nuevo.png")
 
 
 @pytest.fixture
@@ -175,6 +196,19 @@ def login_admin(client):
     login_data = {
         "username": "admin",
         "password": "admin"
+    }
+    response = client.post("/token", data=login_data)
+    data = response.json()
+    auth = f'{data.get("token_type")} {data.get("access_token")}'
+    return {"Authorization": auth}
+
+
+@pytest.fixture
+def login_user(client):
+    """Return Authorization from a user's login"""
+    login_data = {
+        "username": "primero",
+        "password": "1234"
     }
     response = client.post("/token", data=login_data)
     data = response.json()

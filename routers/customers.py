@@ -1,3 +1,5 @@
+from typing import List
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
@@ -14,18 +16,19 @@ router = APIRouter(
 )
 
 
-@router.get("/")
-async def customers(session: Session = Depends(get_db)):
+@router.get("/", response_model=List[CustomerSchema])
+async def customers(session: Session = Depends(get_db)) -> List[CustomerSchema]:
     """ Get /customers
     Args:
         session: Session
 
     Returns: list
     """
-    return CustomerController(session).get_all()
+    result = CustomerController(session).get_all()
+    return [CustomerSchema.from_orm(customer) for customer in result]
 
 
-@router.get("/{customer_id}")
+@router.get("/{customer_id}", response_model=CustomerSchema)
 async def read(customer_id: str,
                session: Session = Depends(get_db)) -> CustomerSchema:
     """ Get /customers/{customer_id}
@@ -60,7 +63,7 @@ async def update(customer: CustomerSchema,
     return controller.update(customer)
 
 
-@router.post("/", response_model=CustomerCreateSchema)
+@router.post("/", response_model=CustomerSchema)
 async def create(customer: CustomerCreateSchema,
                  session: Session = Depends(get_db)) -> CustomerSchema:
     """ Post /customers
