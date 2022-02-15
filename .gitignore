@@ -62,3 +62,6 @@ docs/_build/
 
 # SQLite
 *.db
+
+# PyTest
+.pytest_cache/
