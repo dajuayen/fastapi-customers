@@ -1,1 +1,2 @@
+[![Board Status](https://dev.azure.com/juayen/21abcd42-d8d6-4825-98eb-465fe5d8b1f4/34a3275b-de64-4370-87f4-800089cc3e9f/_apis/work/boardbadge/8baf89cf-a9d1-456a-bbb0-8902881237a2)](https://dev.azure.com/juayen/21abcd42-d8d6-4825-98eb-465fe5d8b1f4/_boards/board/t/34a3275b-de64-4370-87f4-800089cc3e9f/Microsoft.RequirementCategory)
 # fastapi-customers
