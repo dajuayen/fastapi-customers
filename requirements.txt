@@ -21,7 +21,6 @@ iniconfig==1.1.1
 isort==5.10.1
 lazy-object-proxy==1.7.1
 mccabe==0.6.1
-metrics==0.3.3
 packaging==21.3
 passlib==1.7.4
 pathlib2==2.3.6
@@ -51,7 +50,7 @@ sniffio==1.2.0
 SQLAlchemy==1.4.29
 SQLAlchemy-Utils==0.38.2
 starlette==0.17.1
-starlette-prometheus==0.9.0
+starlette-prometheus==0.10.0
 toml==0.10.2
 tomli==2.0.1
 typing_extensions==4.0.1
