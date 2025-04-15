@@ -43,6 +43,9 @@ Unit test with [pytest](https://docs.pytest.org/en/stable/index.html) and covera
 ### 4- C.I.
 
   - [GitHub Actions](https://docs.github.com/en/actions)
+
+    The url to search for public actions: [Marketplace - Actions](https://github.com/marketplace?type=actions)
+
     - [setup-python](https://github.com/actions/setup-python)
     - [py-actions/py-dependency-install](https://github.com/marketplace/actions/python-dependency-installation)
   - Circle
