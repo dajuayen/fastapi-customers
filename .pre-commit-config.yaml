@@ -1,0 +1,28 @@
+default_language_version:
+  python: python3.8
+
+default_stages: [pre-commit, pre-push, lint, test, coverage]
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.20.0
+    hooks:
+      - id: trailing-whitespace
+        args: ['--ignore', 'README.md']
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+        args: ['--maxkb=80']
+      - id: check-merge-conflict
+      - id: check-toml
+      - id: check-json
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Ruff version.
+    rev: v0.11.5
+    hooks:
+      # Run the linter.
+      - id: ruff
+        args: [ --fix ]
+      # Run the formatter.
+      - id: ruff-format
