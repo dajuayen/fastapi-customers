@@ -40,7 +40,14 @@ Unit test with [pytest](https://docs.pytest.org/en/stable/index.html) and covera
       - Users
       - Customers
 
-### 4- C.I.
+### 4- Linters:
+
+  - [pre-commit](https://pre-commit.com/)    
+  - [pylint](https://pylint.pycqa.org/en/latest/)
+  - [Black](https://black.readthedocs.io/en/stable/)
+  - [ruff](https://docs.astral.sh/ruff/)
+
+### 5- C.I.
 
   - [GitHub Actions](https://docs.github.com/en/actions)
 

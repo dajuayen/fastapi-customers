@@ -9,6 +9,7 @@ from config.database import Base
 
 class Controller(ABC):
     """Controller Abstract Class"""
+
     query: Query
 
     @abstractmethod
@@ -18,7 +19,7 @@ class Controller(ABC):
         self.query = self.session.query(self.in_cls)
 
     def get(self, identifier: int):
-        """ Get object by identifier
+        """Get object by identifier
         Args:
             identifier: id int
         Returns: object
@@ -26,7 +27,7 @@ class Controller(ABC):
         return self.query.filter_by(id=identifier).first()
 
     def get_all(self, skip: int = 0, limit: int = 100):
-        """ Get object list
+        """Get object list
         Args:
             skip: number of objects to skip to start the list (int)
             limit: limit of objects to return in the list (int)
@@ -35,7 +36,7 @@ class Controller(ABC):
         return self.query.offset(skip).limit(limit).all()
 
     def delete(self, identifier: int) -> Any:
-        """ Delete object
+        """Delete object
         Args:
             identifier: id (int)
         Returns: result statement
@@ -46,7 +47,7 @@ class Controller(ABC):
 
     @abstractmethod
     def create(self, schema: BaseModel) -> BaseModel:
-        """ Create object
+        """Create object
         Args:
             schema: Schema with the required fields of the class to create an
             object.
@@ -61,7 +62,7 @@ class Controller(ABC):
 
     @abstractmethod
     def update(self, schema: BaseModel):
-        """ Update object
+        """Update object
         Args:
             schema: Schema with the modifiable fields of the object.
         Returns: result statement.

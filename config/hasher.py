@@ -19,7 +19,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
 def verify_password(plain_password, hashed_password):
-    """ It verifies that the plain text received is equal to the hashed
+    """It verifies that the plain text received is equal to the hashed
     password that is stored.
 
     Args:
@@ -62,7 +62,7 @@ def _create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
 
 
 async def get_access_token(user):
-    """ Return jwt-encoded access token
+    """Return jwt-encoded access token
 
     Args:
         user: User
@@ -71,12 +71,13 @@ async def get_access_token(user):
 
     """
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    return _create_access_token(data={"sub": user.login},
-                                expires_delta=access_token_expires)
+    return _create_access_token(
+        data={"sub": user.login}, expires_delta=access_token_expires
+    )
 
 
 def _get_user(login: str, session: Session):
-    """ Search user by login and return it
+    """Search user by login and return it
     Args:
         login: str
         session: Session
@@ -90,7 +91,7 @@ def _get_user(login: str, session: Session):
 
 
 def get_user_from_token(token: str, session: Session):
-    """ Return User from access token
+    """Return User from access token
     Args:
         token: str
         session: Session

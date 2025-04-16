@@ -60,3 +60,7 @@ uvloop==0.16.0
 watchgod==0.7
 websockets==10.1
 wrapt==1.13.3
+pre-commit==3.5.0
+ruff==0.11.5
+black==24.8.0
+allure-pytest==2.14.0

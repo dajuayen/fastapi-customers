@@ -3,20 +3,20 @@ from models.user import UserSchema
 
 class TestUsersRouter:
     """Test Users Router"""
+
     # pylint: disable=R0201
 
     def test_users(self, admin, client, login_admin):
         """Check that an access_token is returned when logging in and
         that it is of type bearer.
         """
-        response = client.get("/users",
-                              headers=login_admin)
+        response = client.get("/users", headers=login_admin)
         assert response.status_code == 200
         users = response.json()
         assert admin in users
 
     def test_get_admin(self, admin, client, login_admin):
-        """ Find a admin user.
+        """Find a admin user.
         Args:
             admin: schema
             client: testClient
@@ -29,7 +29,7 @@ class TestUsersRouter:
         assert admin == UserSchema(**response_user)
 
     def test_get_user(self, user, client, login_admin):
-        """ Find a user.
+        """Find a user.
         Args:
             user: schema
             client: testClient
@@ -42,7 +42,7 @@ class TestUsersRouter:
         assert user == UserSchema(**response_user)
 
     def test_create_delete_user(self, new_user, client, login_admin):
-        """ Check to create a user. After check to delete the created user.
+        """Check to create a user. After check to delete the created user.
         Args:
             new_user: schema
             client: testClient
@@ -60,15 +60,15 @@ class TestUsersRouter:
         assert response.status_code == 200
 
     def test_update_user(self, user, client, login_admin):
-        """ Check to update a user.
+        """Check to update a user.
         Args:
             user: schema
             client: testClient
             login_admin: authorization
         """
         values = user.dict()
-        values['login'] = "primer"
-        values['role'] = "admin"
+        values["login"] = "primer"
+        values["role"] = "admin"
         response = client.put("/users/", headers=login_admin, json=values)
         assert response.status_code == 200
         response_user = response.json()
@@ -79,8 +79,8 @@ class TestUsersRouter:
         assert user.role != modified_user.role
         assert modified_user.role == "admin"
 
-        values['login'] = "primero"
-        values['role'] = "user"
+        values["login"] = "primero"
+        values["role"] = "user"
         response = client.put("/users/", headers=login_admin, json=values)
         assert response.status_code == 200
         response_user = response.json()

@@ -6,17 +6,19 @@ from config.database import Base
 
 class User(Base):
     """User Class"""
+
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
     login = Column(String, unique=True, index=True)
     hashed_password = Column(String)
     # is_active = Column(Boolean, default=True)
-    role = Column(String, default='user')
+    role = Column(String, default="user")
 
 
 class UserBaseSchema(BaseModel):
     """UserBaseSchema Schema"""
+
     login: str
     role: str
 
@@ -27,6 +29,7 @@ class UserBaseSchema(BaseModel):
 
 class UserCreateSchema(UserBaseSchema):
     """UserCreateSchema Schema"""
+
     password: str
 
     class Config:
@@ -36,6 +39,7 @@ class UserCreateSchema(UserBaseSchema):
 
 class UserSchema(UserBaseSchema):
     """UserSchema Schema"""
+
     id: int
 
     class Config:

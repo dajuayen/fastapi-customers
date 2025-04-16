@@ -8,6 +8,7 @@ from config.database import Base
 
 class Customer(Base):
     """Customer Class"""
+
     __tablename__ = "customers"
 
     id = Column(Integer, primary_key=True, index=True)
@@ -19,6 +20,7 @@ class Customer(Base):
 
 class CustomerBaseSchema(BaseModel):
     """CustomerBaseSchema Schema"""
+
     name: str
     surname: str
 
@@ -29,6 +31,7 @@ class CustomerBaseSchema(BaseModel):
 
 class CustomerCreateSchema(BaseModel):
     """CustomerCreateSchema Schema"""
+
     name: str
     surname: str
     photo: Optional[str] = None
@@ -40,6 +43,7 @@ class CustomerCreateSchema(BaseModel):
 
 class CustomerSchema(CustomerCreateSchema):
     """CustomerSchema Schema"""
+
     id: int
 
     class Config:

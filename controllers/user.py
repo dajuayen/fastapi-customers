@@ -37,30 +37,30 @@ class UserController(Controller):
         return UserSchema.from_orm(db_user)
 
     def create_admin_user(self) -> UserSchema:
-        """ Create admin user
+        """Create admin user
         Returns: Admin user or None
         """
-        db_admin = self.get_by_login(login=ADMIN_USER.get('login'))
+        db_admin = self.get_by_login(login=ADMIN_USER.get("login"))
         if not db_admin:
             vals = ADMIN_USER.copy()
-            vals['hashed_password'] = get_password_hash(vals.pop('password'))
+            vals["hashed_password"] = get_password_hash(vals.pop("password"))
             return self._create_user(vals)
         return False
 
     def create(self, schema: UserCreateSchema) -> UserSchema:
-        """ Create user.
+        """Create user.
         Args:
             schema: UserCreateSchema
         Returns: User or None
         """
         values = schema.dict()
-        values['hashed_password'] = get_password_hash(values.pop('password'))
-        if values.get('role') in ROLES:
+        values["hashed_password"] = get_password_hash(values.pop("password"))
+        if values.get("role") in ROLES:
             return self._create_user(values)
         return False
 
     def update(self, schema: UserSchema) -> UserSchema:
-        """ Update user.
+        """Update user.
         Args:
             schema: UserSchema
         Returns: User or None
