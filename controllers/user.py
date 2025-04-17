@@ -6,11 +6,7 @@ from models.user import User, UserSchema, UserCreateSchema, UserBaseSchema
 
 ROLES = ["admin", "user"]
 
-ADMIN_USER = {
-    "login": 'root',
-    "password": 'root',
-    "role": 'super'
-}
+ADMIN_USER = {"login": "root", "password": "root", "role": "super"}
 
 
 class UserController(Controller):

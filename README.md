@@ -3,7 +3,7 @@
 [![CircleCI](https://circleci.com/gh/dajuayen/fastapi-customers/tree/develop.svg?style=svg)](https://circleci.com/gh/dajuayen/fastapi-customers/tree/develop)
 [![Build Status](https://app.travis-ci.com/dajuayen/fastapi-customers.svg?branch=develop "Travis")](https://app.travis-ci.com/dajuayen/fastapi-customers)
 [![codecov](https://codecov.io/gh/dajuayen/fastapi-customers/branch/develop/graph/badge.svg?token=0EA0ZI526H)](https://codecov.io/gh/dajuayen/fastapi-customers)
-
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 Create ApiRest with FastApi:
 
@@ -42,7 +42,12 @@ Unit test with [pytest](https://docs.pytest.org/en/stable/index.html) and covera
 
 ### 4- Linters:
 
-  - [pre-commit](https://pre-commit.com/)    
+  - [pre-commit](https://pre-commit.com/):
+    - definido en el archivo .pre-commit-config.yaml
+    - importante ejecutar el siguiente comando para instalar los hooks:
+      - pre-commit install
+    - ejecutar el siguiente comando para ejecutar los hooks y comprobar que funciona:
+      - pre-commit run --all-files
   - [pylint](https://pylint.pycqa.org/en/latest/)
   - [Black](https://black.readthedocs.io/en/stable/)
   - [ruff](https://docs.astral.sh/ruff/)

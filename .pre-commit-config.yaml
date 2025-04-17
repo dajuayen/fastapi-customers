@@ -1,14 +1,16 @@
 default_language_version:
   python: python3.8
 
-default_stages: [pre-commit, pre-push, lint, test, coverage]
+default_stages: [pre-commit, pre-push, commit-msg, post-merge]
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.20.0
+    rev: v5.0.0
     hooks:
       - id: trailing-whitespace
-        args: ['--ignore', 'README.md']
+        name: Trim Trailing Whitespace
+        description: This hook trims trailing whitespace.
+        exclude: '(^README\.md$)'
       - id: end-of-file-fixer
       - id: check-yaml
       - id: check-added-large-files
@@ -26,3 +28,12 @@ repos:
         args: [ --fix ]
       # Run the formatter.
       - id: ruff-format
+
+  # Using this mirror lets us use mypyc-compiled black, which is about 2x faster
+  - repo: https://github.com/psf/black-pre-commit-mirror
+    rev: 24.8.0
+    hooks:
+      - id: black
+        name: Black
+        description: This hook formats Python code using Black.
+        args: ['--line-length', '80']

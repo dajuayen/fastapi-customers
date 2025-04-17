@@ -24,14 +24,15 @@ async def users(session: Session = Depends(get_db)) -> List[UserSchema]:
         session: Session
     Returns: list[UserSchema]
     """
-    list_users = [UserSchema.from_orm(db_user) for db_user in
-                  UserController(session).get_all()]
+    list_users = [
+        UserSchema.from_orm(db_user)
+        for db_user in UserController(session).get_all()
+    ]
     return list_users
 
 
 @router.get("/{user_id}")
-async def read(user_id: str,
-               session: Session = Depends(get_db)) -> UserSchema:
+async def read(user_id: str, session: Session = Depends(get_db)) -> UserSchema:
     """Get /users/{user_id}
     Args:
         user_id: id
@@ -40,16 +41,16 @@ async def read(user_id: str,
     """
     db_user = UserController(session).get(int(user_id))
     if not db_user:
-        raise HTTPException(status_code=404,
-                            detail="User not Found")
+        raise HTTPException(status_code=404, detail="User not Found")
     schema_user = UserSchema.from_orm(db_user)
     return schema_user
 
 
 @router.put("/", response_model=UserSchema)
-async def update(user: UserSchema,
-                 session: Session = Depends(get_db)) -> UserSchema:
-    """ Put /users
+async def update(
+    user: UserSchema, session: Session = Depends(get_db)
+) -> UserSchema:
+    """Put /users
     Args:
         user: UserSchema
         session: Session
@@ -58,14 +59,14 @@ async def update(user: UserSchema,
     controller = UserController(session)
     customer_db = controller.get(user.id)
     if not customer_db:
-        raise HTTPException(status_code=404,
-                            detail="User not Found")
+        raise HTTPException(status_code=404, detail="User not Found")
     return controller.update(user)
 
 
 @router.post("/", response_model=UserSchema)
-def create(user: UserCreateSchema,
-           session: Session = Depends(get_db)) -> UserSchema:
+def create(
+    user: UserCreateSchema, session: Session = Depends(get_db)
+) -> UserSchema:
     """Post /users
     Args:
         user: UserCreateSchema
@@ -75,8 +76,7 @@ def create(user: UserCreateSchema,
     controller = UserController(session)
     user_db = controller.get_by_login(user)
     if user_db:
-        raise HTTPException(status_code=400,
-                            detail="User already registered")
+        raise HTTPException(status_code=400, detail="User already registered")
     new_user = controller.create(schema=user)
     if not new_user or not new_user.id:
         HTTPException(
@@ -88,7 +88,7 @@ def create(user: UserCreateSchema,
 
 @router.delete("/{user_id}")
 def delete(user_id: str, session: Session = Depends(get_db)):
-    """ Delete /users/{user_id}
+    """Delete /users/{user_id}
     Args:
         user_id: id
         session: Session
@@ -97,7 +97,6 @@ def delete(user_id: str, session: Session = Depends(get_db)):
     controller = UserController(session)
     user_db = controller.get(int(user_id))
     if not user_db:
-        raise HTTPException(status_code=404,
-                            detail="User not found")
+        raise HTTPException(status_code=404, detail="User not found")
     result = controller.delete(int(user_id))
     return result

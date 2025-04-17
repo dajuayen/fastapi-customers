@@ -7,8 +7,9 @@ from config.hasher import oauth2_scheme, get_user_from_token
 from models.user import User
 
 
-async def get_current_user(token: str = Depends(oauth2_scheme),
-                           session: Session = Depends(get_db)):
+async def get_current_user(
+    token: str = Depends(oauth2_scheme), session: Session = Depends(get_db)
+):
     """Get current user
 
     Args:
@@ -33,8 +34,9 @@ async def get_current_user(token: str = Depends(oauth2_scheme),
 
 
 async def get_current_active_user(
-        current_user: User = Depends(get_current_user)):
-    """  Check that the current user is active.
+    current_user: User = Depends(get_current_user),
+):
+    """Check that the current user is active.
     Args:
         current_user: User
     Returns: boolean
@@ -45,13 +47,13 @@ async def get_current_active_user(
 
 
 async def get_current_user_permisions(
-        current_user: User = Depends(get_current_user)):
-    """  Check that the current user has permission.
+    current_user: User = Depends(get_current_user),
+):
+    """Check that the current user has permission.
     Args:
         current_user: User
     Returns: boolean
     """
-    if current_user.role == 'user':
-        raise HTTPException(status_code=400,
-                            detail="User has not permission")
+    if current_user.role == "user":
+        raise HTTPException(status_code=400, detail="User has not permission")
     return current_user

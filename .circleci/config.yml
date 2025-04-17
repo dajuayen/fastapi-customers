@@ -40,7 +40,7 @@ jobs:
       - run:
           name: Run tests and collect coverage
           # This assumes pytest is installed via the install-package step above
-          command: pytest test/*/*.py --cov=./ --cov-report=xml 
+          command: pytest test/*/*.py --cov=./ --cov-report=xml
       - codecov/upload
 
 # Invoke jobs via workflows
