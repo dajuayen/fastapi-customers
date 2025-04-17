@@ -4,6 +4,7 @@
 [![Build Status](https://app.travis-ci.com/dajuayen/fastapi-customers.svg?branch=develop "Travis")](https://app.travis-ci.com/dajuayen/fastapi-customers)
 [![codecov](https://codecov.io/gh/dajuayen/fastapi-customers/branch/develop/graph/badge.svg?token=0EA0ZI526H)](https://codecov.io/gh/dajuayen/fastapi-customers)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
 
 Create ApiRest with FastApi:
 
