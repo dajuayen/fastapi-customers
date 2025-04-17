@@ -4,6 +4,7 @@ from models.customer import CustomerBaseSchema
 
 class TestCustomerController:
     """Test CustomerController"""
+
     # pylint: disable=R0201
 
     def test_get_by_name_surname(self, test_db_session):

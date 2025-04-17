@@ -13,7 +13,7 @@ class SecurityController:
         self.session = session
 
     def authenticate_user(self, login: str, password: str) -> User:
-        """ Authenticates the login and password in the system.
+        """Authenticates the login and password in the system.
         Args:
             login: str
             password: str

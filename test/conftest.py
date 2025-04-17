@@ -22,37 +22,15 @@ engine = create_engine(
 )
 
 users = [
-    {
-        'login': "root",
-        'role': "root",
-        'password': "root"},
-    {
-        'login': "admin",
-        'role': "admin",
-        'password': "admin"},
-    {
-        'login': "primero",
-        'role': "user",
-        'password': "1234"},
-    {
-        'login': "segundo",
-        'role': "user",
-        'password': "1234"},
-
+    {"login": "root", "role": "root", "password": "root"},
+    {"login": "admin", "role": "admin", "password": "admin"},
+    {"login": "primero", "role": "user", "password": "1234"},
+    {"login": "segundo", "role": "user", "password": "1234"},
 ]
 customers = [
-    {
-        'name': "primero",
-        'surname': "customer",
-        'photo': "primero.png"},
-    {
-        'name': "segundo",
-        'surname': "customer",
-        'photo': "segundo.png"},
-    {
-        'name': "tercero",
-        'surname': "customer",
-        'photo': "tercero.png"}
+    {"name": "primero", "surname": "customer", "photo": "primero.png"},
+    {"name": "segundo", "surname": "customer", "photo": "segundo.png"},
+    {"name": "tercero", "surname": "customer", "photo": "tercero.png"},
 ]
 
 
@@ -62,8 +40,7 @@ def get_test_db():
     """
     # pylint: disable=C0103
     # SessionLocal = sessionmaker(bind=engine)
-    SessionLocal = sessionmaker(autocommit=False, autoflush=False,
-                                bind=engine)
+    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     test_db = SessionLocal()
 
     try:
@@ -76,7 +53,7 @@ def load_test_data(session):
     """Load data in test database"""
     for user_data in users:
         values = user_data.copy()
-        values['hashed_password'] = get_password_hash(values.pop('password'))
+        values["hashed_password"] = get_password_hash(values.pop("password"))
         db_user = User(**values)
         session.add(db_user)
         session.commit()
@@ -101,10 +78,12 @@ def create_test_database():
         # drop_database(SQLALCHEMY_DATABASE_URL)
         create_database(SQLALCHEMY_DATABASE_URL)  # Create the test database.
         Base.metadata.create_all(engine)  # Create the tables.
-        app.dependency_overrides[
-            get_db] = get_test_db  # Mock the Database Dependency
-        Session_Local = sessionmaker(autocommit=False, autoflush=False,
-                                     bind=engine)
+        app.dependency_overrides[get_db] = (
+            get_test_db  # Mock the Database Dependency
+        )
+        Session_Local = sessionmaker(
+            autocommit=False, autoflush=False, bind=engine
+        )
         session = Session_Local()
         load_test_data(session)
 
@@ -172,45 +151,42 @@ def new_user():
 @pytest.fixture
 def customer1():
     """Return a CustomerSchema with customer1's data"""
-    return CustomerSchema(name="primero", surname="customer",
-                          photo="primero.png", id=1)
+    return CustomerSchema(
+        name="primero", surname="customer", photo="primero.png", id=1
+    )
 
 
 @pytest.fixture
 def customer3():
     """Return a CustomerSchema with customer2's data"""
-    return CustomerSchema(name="tercero", surname="customer",
-                          photo="tercero.png", id=3)
+    return CustomerSchema(
+        name="tercero", surname="customer", photo="tercero.png", id=3
+    )
 
 
 @pytest.fixture
 def new_customer():
     """Return a CustomerCreateSchema with a new customer's data"""
-    return CustomerCreateSchema(name="nuevo", surname="customer",
-                          photo="nuevo.png")
+    return CustomerCreateSchema(
+        name="nuevo", surname="customer", photo="nuevo.png"
+    )
 
 
 @pytest.fixture
 def login_admin(client):
     """Return Authorization from admin user's login"""
-    login_data = {
-        "username": "admin",
-        "password": "admin"
-    }
+    login_data = {"username": "admin", "password": "admin"}
     response = client.post("/token", data=login_data)
     data = response.json()
-    auth = f'{data.get("token_type")} {data.get("access_token")}'
+    auth = f"{data.get('token_type')} {data.get('access_token')}"
     return {"Authorization": auth}
 
 
 @pytest.fixture
 def login_user(client):
     """Return Authorization from a user's login"""
-    login_data = {
-        "username": "primero",
-        "password": "1234"
-    }
+    login_data = {"username": "primero", "password": "1234"}
     response = client.post("/token", data=login_data)
     data = response.json()
-    auth = f'{data.get("token_type")} {data.get("access_token")}'
+    auth = f"{data.get('token_type')} {data.get('access_token')}"
     return {"Authorization": auth}

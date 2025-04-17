@@ -1,6 +1,6 @@
 anyio==3.4.0
 asgiref==3.4.1
-astroid==2.9.3
+astroid>=3.2.4,<3.3.0
 attrs==21.4.0
 bcrypt==3.2.0
 certifi==2021.10.8
@@ -21,10 +21,10 @@ iniconfig==1.1.1
 isort==5.10.1
 lazy-object-proxy==1.7.1
 mccabe==0.6.1
-packaging==21.3
+packaging>=21.3
 passlib==1.7.4
 pathlib2==2.3.6
-pathspec==0.5.5
+pathspec>=0.9.0
 platformdirs==2.4.1
 pluggy==1.0.0
 prometheus-client==0.12.0
@@ -34,8 +34,8 @@ pyasn1==0.4.8
 pycparser==2.21
 pydantic==1.9.0
 Pygments==2.2.0
-pylint==2.12.2
-pylint-pydantic==0.1.4
+pylint==3.2.7
+pylint-pydantic==0.3.5
 pyparsing==3.0.6
 pytest==6.2.5
 pytest-cov==3.0.0
@@ -60,3 +60,7 @@ uvloop==0.16.0
 watchgod==0.7
 websockets==10.1
 wrapt==1.13.3
+pre-commit==3.5.0
+ruff==0.11.5
+black==24.8.0
+allure-pytest==2.14.0

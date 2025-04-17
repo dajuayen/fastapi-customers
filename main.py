@@ -31,7 +31,7 @@ app.include_router(users.router)
 
 @app.get("/")
 def main(session: Session = Depends(get_db)):
-    """ Root endpoint of the app
+    """Root endpoint of the app
     Args:
         session: Session
     Returns: response
