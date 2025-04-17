@@ -1,10 +1,13 @@
 # fastapi-customers
 
+![PyPI - Version](https://img.shields.io/pypi/v/:packageName)
 [![CircleCI](https://circleci.com/gh/dajuayen/fastapi-customers/tree/develop.svg?style=svg)](https://circleci.com/gh/dajuayen/fastapi-customers/tree/develop)
 [![Build Status](https://app.travis-ci.com/dajuayen/fastapi-customers.svg?branch=develop "Travis")](https://app.travis-ci.com/dajuayen/fastapi-customers)
 [![codecov](https://codecov.io/gh/dajuayen/fastapi-customers/branch/develop/graph/badge.svg?token=0EA0ZI526H)](https://codecov.io/gh/dajuayen/fastapi-customers)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
+[![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev/pylint)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
 Create ApiRest with FastApi:
 
