@@ -24,7 +24,7 @@ mccabe==0.6.1
 packaging>=21.3
 passlib==1.7.4
 pathlib2==2.3.6
-pathspec==0.5.5
+pathspec>=0.9.0
 platformdirs==2.4.1
 pluggy==1.0.0
 prometheus-client==0.12.0
