@@ -14,13 +14,13 @@ Create ApiRest with FastApi:
 
 ## Content
 
-1- Endpoints. 
+### 1- Endpoints. 
   - Customers (CRUD)
   - Users (CRUD)
   - Token
   - Main
 
-2- Enviroments: 
+### 2- Enviroments: 
 
   | DB      | Env. Var. |
   |---------|-----------|
@@ -28,17 +28,37 @@ Create ApiRest with FastApi:
   | PostgresSql | ENV=postgres|
 
 
-3- Tests:
-- Routers:
-    - Main
-    - Securities
-    - Users
-    - Customers
+### 3- Tests:
 
-## C.I.
+Unit test with [pytest](https://docs.pytest.org/en/stable/index.html) and coverage.
 
-- GitHub Actions
-- Circle
-- Travis
-- Coverage
-- Codecov
+  - Controller:
+    - Customer
+  - Routers:
+      - Main
+      - Securities
+      - Users
+      - Customers
+
+### 4- C.I.
+
+  - [GitHub Actions](https://docs.github.com/en/actions)
+
+    The url to search for public actions: [Marketplace - Actions](https://github.com/marketplace?type=actions)
+
+    - [setup-python](https://github.com/actions/setup-python)
+    - [py-actions/py-dependency-install](https://github.com/marketplace/actions/python-dependency-installation)
+  - Circle
+  - Travis
+  - [Coverage](https://coverage.readthedocs.io/):
+    - Installation:
+      - pip install coverage
+      - pip install pytest-cov
+      - pip install pytest
+      - pip install pytest-asyncio
+      - pip install pytest-mock
+    - Run:
+      - coverage run -m pytest
+      - coverage report
+      - coverage html
+    - Codecov

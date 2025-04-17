@@ -18,6 +18,7 @@ lib64/
 parts/
 sdist/
 var/
+.venv
 *.egg-info/
 .installed.cfg
 *.egg
@@ -34,6 +35,7 @@ htmlcov/
 .cache
 nosetests.xml
 coverage.xml
+/%allure_result_folder%*/
 
 # Translations
 *.mo
