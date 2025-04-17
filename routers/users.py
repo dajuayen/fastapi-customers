@@ -79,7 +79,7 @@ def create(
         raise HTTPException(status_code=400, detail="User already registered")
     new_user = controller.create(schema=user)
     if not new_user or not new_user.id:
-        HTTPException(
+        raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Validation Error",
         )
