@@ -52,15 +52,15 @@ jobs:
         continue-on-error: true
         with:
           ref: gh_pages
-          path: allure-history
+          path: allure/history
 
       - name: Generate test report
         uses: simple-elf/allure-report-action@v1.7
         if: always()
         with:
-          gh_pages: history
-          allure_results: allure-results
-          allure_history: allure-history/report
+          gh_pages: allure/history
+          allure_results: allure/results
+          allure_history: allure/report
 
       - name: Instalar tree y mostrar estructura de carpetas
         run: |
@@ -69,13 +69,15 @@ jobs:
           tree -L 2
 
       - name: Compress Allure report
-        run: zip -r allure-report.zip allure-history
+        run: |
+          rm allure/allure-report.zip
+          zip -r allure/allure-report.zip allure/report
 
       - name: Upload report as artifact
         uses: actions/upload-artifact@v4
         with:
           name: allure-report
-          path: allure-report.zip
+          path: allure/allure-report.zip
 
       - name: Deploy test report
         uses: peaceiris/actions-gh-pages@v4
@@ -83,4 +85,4 @@ jobs:
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           publish_branch: gh_pages
-          publish_dir: allure-history/report
+          publish_dir: allure/report
