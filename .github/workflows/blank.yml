@@ -62,6 +62,15 @@ jobs:
           allure_results: allure-results
           allure_history: allure-history/report
 
+      - name: Compress Allure report
+        run: zip -r allure-report.zip allure-history
+
+      - name: Upload report as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-report
+          path: allure-report.zip
+
       - name: Deploy test report
         uses: peaceiris/actions-gh-pages@v4
         if: always()
