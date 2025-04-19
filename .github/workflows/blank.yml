@@ -62,11 +62,17 @@ jobs:
           allure_results: allure-results
           allure_history: allure-history/report
 
+      - name: Instalar tree y mostrar estructura de carpetas
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y tree
+          tree -L 2
+
       - name: Compress Allure report
         run: zip -r allure-report.zip allure-history
 
       - name: Upload report as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: allure-report
           path: allure-report.zip
