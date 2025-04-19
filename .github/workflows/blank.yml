@@ -26,7 +26,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python c
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
@@ -52,15 +52,16 @@ jobs:
         continue-on-error: true
         with:
           ref: gh_pages
-          path: allure/history
+          path: allure/${{ matrix.python-version }}/history
 
       - name: Generate test report
         uses: simple-elf/allure-report-action@v1.7
         if: always()
         with:
           gh_pages: allure/history
-          allure_results: allure/results
-          allure_history: allure/report
+          allure_results: allure/${{ matrix.python-version }}/results
+          allure_history: allure/${{ matrix.python-version }}/history
+          allure_report: allure/${{ matrix.python-version }}/report
 
       - name: Instalar tree y mostrar estructura de carpetas
         run: |
@@ -70,14 +71,17 @@ jobs:
 
       - name: Compress Allure report
         run: |
-          rm allure/allure-report.zip
-          zip -r allure/allure-report.zip allure/report
+          ZIP_PATH="allure/${{ matrix.python-version }}/allure-report.zip"
+          if [ -f "$ZIP_PATH" ]; then
+            rm "$ZIP_PATH"
+          fi
+          zip -r "$ZIP_PATH" allure/report
 
       - name: Upload report as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: allure-report
-          path: allure/allure-report.zip
+          name: allure-report-${{ matrix.python-version }}
+          path: allure/${{ matrix.python-version }}/allure-report.zip
 
       - name: Deploy test report
         uses: peaceiris/actions-gh-pages@v4
@@ -85,4 +89,4 @@ jobs:
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           publish_branch: gh_pages
-          publish_dir: allure/report
+          publish_dir: allure/${{ matrix.python-version }}/report
