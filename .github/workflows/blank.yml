@@ -58,7 +58,7 @@ jobs:
         uses: simple-elf/allure-report-action@v1.7
         if: always()
         with:
-          gh_pages: allure/history
+          gh_pages: allure/${{ matrix.python-version }}/history
           allure_results: allure/${{ matrix.python-version }}/results
           allure_history: allure/${{ matrix.python-version }}/history
           allure_report: allure/${{ matrix.python-version }}/report
@@ -67,7 +67,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y tree
-          tree -L 2
+          tree -L 4
 
       - name: Compress Allure report
         run: |
@@ -75,7 +75,7 @@ jobs:
           if [ -f "$ZIP_PATH" ]; then
             rm "$ZIP_PATH"
           fi
-          zip -r "$ZIP_PATH" allure/report
+          zip -r "$ZIP_PATH" allure/${{ matrix.python-version }}/report
 
       - name: Upload report as artifact
         uses: actions/upload-artifact@v4
