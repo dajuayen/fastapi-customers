@@ -1,0 +1,56 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Allure
+
+# Controls when the workflow will run
+on:
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  report:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+
+      - name: Install Python dependencies
+        uses: py-actions/py-dependency-install@v4
+
+      - name: Run Pytest
+        run: |
+          pytest test/*/*.py
+
+      - name: Upload test report history
+        uses: actions/checkout@v3
+        if: always()
+        continue-on-error: true
+        with:
+          ref: develop
+          path: develop
+
+      - name: Generate test report
+        uses: simple-elf/allure-report-action@v1.7
+        if: always()
+        with:
+          gh_pages: develop
+          allure_history: allure-history
+          allure_results: allure-results
+
+      - name: Deploy test report
+        uses: peaceiris/actions-gh-pages@v4
+        if: always()
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          publish_branch: develop
+          publish_dir: allure-history
