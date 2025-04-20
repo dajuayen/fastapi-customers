@@ -24,12 +24,6 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Prepare commit message in Deploy
-        id: prepare_message
-        run: |
-          echo "${{ toJSON(github.event) }}"
-          echo "DEPLOY_COMMIT_MSG=${{ github.event.head_commit.message }}"
-          echo "DEPLOY_COMMIT_MSG=${{ github.event.head_commit.message }}" >> "${GITHUB_OUTPUT}"
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
@@ -59,16 +53,16 @@ jobs:
         continue-on-error: true
         with:
           ref: gh_pages
-          path: gh_pages
+          path: allure/${{ matrix.python-version }}
 
       - name: Generate test report
         uses: simple-elf/allure-report-action@v1.7
         if: always()
         with:
-          gh_pages: gh_pages
-          allure_results: allure/${{ matrix.python-version }}/results
-          allure_history: allure/${{ matrix.python-version }}/history
-          allure_report: allure/${{ matrix.python-version }}/report
+          gh_pages: allure/${{ matrix.python-version }}
+          allure_results: results
+          allure_history: history
+          allure_report: report
 
       - name: Install tree and show folder structure
         run: |
@@ -84,12 +78,6 @@ jobs:
           fi
           zip -r "$ZIP_PATH" allure/${{ matrix.python-version }}/report
 
-      - name: Prepare tag
-        id: prepare_tag
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          echo "DEPLOY_TAG_NAME=deploy-${TAG_NAME}" >> "${GITHUB_OUTPUT}"
-
       - name: Upload report as artifact
         uses: actions/upload-artifact@v4
         with:
@@ -102,7 +90,5 @@ jobs:
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           publish_branch: gh_pages
-          publish_dir: ./
+          publish_dir: ./allure
           commit_message: deploy ${{ matrix.python-version }} - ${{ steps.prepare_message.outputs.DEPLOY_COMMIT_MSG }}
-          tag_name: ${{ steps.prepare_tag.outputs.DEPLOY_TAG_NAME }}
-          tag_message: 'Deployment ${{ github.ref_name }}'
