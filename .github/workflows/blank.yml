@@ -90,5 +90,5 @@ jobs:
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           publish_branch: gh_pages
-          publish_dir: ./allure
+          publish_dir: ./
           commit_message: deploy ${{ matrix.python-version }} - ${{ steps.prepare_message.outputs.DEPLOY_COMMIT_MSG }}
