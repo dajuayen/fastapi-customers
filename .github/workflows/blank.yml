@@ -27,6 +27,7 @@ jobs:
       - name: Prepare commit message in Deploy
         id: prepare_message
         run: |
+          echo "${{ toJSON(github.event) }}"
           echo "DEPLOY_COMMIT_MSG=${{ github.event.head_commit.message }}"
           echo "DEPLOY_COMMIT_MSG=${{ github.event.head_commit.message }}" >> "${GITHUB_OUTPUT}"
 
@@ -58,15 +59,15 @@ jobs:
         continue-on-error: true
         with:
           ref: gh_pages
-          path: allure/history
+          path: gh_pages
 
       - name: Generate test report
         uses: simple-elf/allure-report-action@v1.7
         if: always()
         with:
-          gh_pages: allure/history
+          gh_pages: gh_pages
           allure_results: allure/${{ matrix.python-version }}/results
-          allure_history: allure/history/${{ matrix.python-version }}
+          allure_history: allure/${{ matrix.python-version }}/history
           allure_report: allure/${{ matrix.python-version }}/report
 
       - name: Install tree and show folder structure
