@@ -17,6 +17,10 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
     strategy:
       fail-fast: false
       matrix:
@@ -89,4 +93,5 @@ jobs:
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           publish_branch: gh_pages
-          publish_dir: allure/${{ matrix.python-version }}/report
+          publish_dir: allure
+          commit_message: ${{ matrix.python-version }} - ${{ github.event.head_commit.message }}
