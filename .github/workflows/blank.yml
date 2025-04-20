@@ -48,7 +48,7 @@ jobs:
           coverage report
 
       - name: Upload test report history
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         if: always()
         continue-on-error: true
         with:
@@ -60,9 +60,9 @@ jobs:
         if: always()
         with:
           gh_pages: allure/${{ matrix.python-version }}
-          allure_results: results
-          allure_history: history
-          allure_report: report
+          allure_results: allure/${{ matrix.python-version }}/results
+          allure_history: allure/${{ matrix.python-version }}/history
+          allure_report: allure/${{ matrix.python-version }}/report
 
       - name: Install tree and show folder structure
         run: |
