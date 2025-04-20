@@ -31,6 +31,7 @@ jobs:
       - name: Prepare commit message in Deploy
         id: prepare_message
         run: |
+          echo "DEPLOY_COMMIT_MSG=${{ github.event.head_commit.message }}"
           echo "DEPLOY_COMMIT_MSG=${{ github.event.head_commit.message }}" >> "${GITHUB_OUTPUT}"
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -61,15 +62,15 @@ jobs:
         continue-on-error: true
         with:
           ref: gh_pages
-          path: allure/${{ matrix.python-version }}/history
+          path: allure/history
 
       - name: Generate test report
         uses: simple-elf/allure-report-action@v1.7
         if: always()
         with:
-          gh_pages: allure/${{ matrix.python-version }}/history
+          gh_pages: allure/history
           allure_results: allure/${{ matrix.python-version }}/results
-          allure_history: allure/${{ matrix.python-version }}/history
+          allure_history: allure/history/${{ matrix.python-version }}/
           allure_report: allure/${{ matrix.python-version }}/report
 
       - name: Install tree and show folder structure
@@ -104,7 +105,7 @@ jobs:
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           publish_branch: gh_pages
-          publish_dir: allure
-          commit_message: ${{ matrix.python-version }} - ${{ steps.prepare_message.outputs.DEPLOY_COMMIT_MSG }}
+          publish_dir: ./
+          commit_message: deploy ${{ matrix.python-version }} - ${{ steps.prepare_message.outputs.DEPLOY_COMMIT_MSG }}
           tag_name: ${{ steps.prepare_tag.outputs.DEPLOY_TAG_NAME }}
           tag_message: 'Deployment ${{ github.ref_name }}'
