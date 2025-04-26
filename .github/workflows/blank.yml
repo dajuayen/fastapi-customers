@@ -51,23 +51,6 @@ jobs:
         run: |
           coverage report
 
-      - name: Upload test report history
-        uses: actions/checkout@v4
-        if: always()
-        continue-on-error: true
-        with:
-          ref: gh_pages
-          path: allure
-
-      - name: Generate test report
-        uses: simple-elf/allure-report-action@v1.7
-        if: always()
-        with:
-          gh_pages: allure
-          allure_results: allure/${{ matrix.python-version }}/results
-          allure_history: allure/${{ matrix.python-version }}/history
-          allure_report: allure/${{ matrix.python-version }}/report
-
       - name: Show folder structure
         run: |
           tree -L 4
@@ -85,6 +68,21 @@ jobs:
         run: |
           ls -ld allure/${{ matrix.python-version }}
           ls -l allure/${{ matrix.python-version }}
+
+      - name: Get Allure history
+        uses: actions/checkout@v4
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Generate test report
+        uses: simple-elf/allure-report-action@v1.7
+        if: always()
+        with:
+          subfolder: allure/${{ matrix.python-version }}
+          keep_reports: 7
 
       - name: Compress Allure report
         run: |
@@ -106,6 +104,16 @@ jobs:
         if: always()
         with:
           github_token: ${{ secrets.GH_TOKEN }}
-          publish_branch: gh_pages
-          publish_dir: ./
+          publish_branch: gh-pages
+          publish_dir: ./allure
           commit_message: deploy ${{ matrix.python-version }} - ${{ steps.prepare_message.outputs.DEPLOY_COMMIT_MSG }}
+
+      - name: Post the link to the report
+        if: always()
+        uses: Sibz/github-status-action@v1
+        with:
+          authToken: ${{secrets.GH_TOKEN}}
+          context: 'Test report'
+          state: 'success'
+          sha: ${{ github.event.pull_request.head.sha }}
+          target_url: simple-elf.github.io/github-allure-history/${{ github.run_number }}
