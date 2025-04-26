@@ -55,11 +55,12 @@ jobs:
         run: |
           FOLDER_PATH="allure/${{ matrix.python-version }}"
           if [ ! -d "$FOLDER_PATH" ]; then
-            mkdir "$FOLDER_PATH"
+            mkdir -p "$FOLDER_PATH"
             echo "Folder $FOLDER_PATH created"
           fi
 
       - name: Show folder structure
+        if: always()
         run: |
           tree -L 4
 
@@ -86,6 +87,7 @@ jobs:
           path: gh-pages
 
       - name: Show folder structure
+        if: always()
         run: |
           tree -L 4
 
@@ -97,6 +99,7 @@ jobs:
           keep_reports: 7
 
       - name: Show folder structure
+        if: always()
         run: |
           tree -L 4
 
