@@ -87,7 +87,7 @@ jobs:
         if: always()
         with:
           github_token: ${{ secrets.GH_TOKEN }}
-          publish_dir: ./allure-history/allure
+          publish_dir: ./allure-history
           commit_message: deploy ${{ matrix.python-version }} - ${{ github.run_number }}
 
       - name: Post the link to the report
