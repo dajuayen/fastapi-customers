@@ -53,7 +53,7 @@ jobs:
 
       - name: Create Allure directory if it doesn't exist
         run: |
-          $FOLDER_PATH="allure/${{ matrix.python-version }}"
+          FOLDER_PATH="allure/${{ matrix.python-version }}"
           if [ ! -d "$FOLDER_PATH" ]; then
             mkdir "$FOLDER_PATH"
             echo "Folder $FOLDER_PATH created"
@@ -85,12 +85,20 @@ jobs:
           ref: gh-pages
           path: gh-pages
 
+      - name: Show folder structure
+        run: |
+          tree -L 4
+
       - name: Generate test report
         uses: simple-elf/allure-report-action@v1.7
         if: always()
         with:
           subfolder: allure/${{ matrix.python-version }}
           keep_reports: 7
+
+      - name: Show folder structure
+        run: |
+          tree -L 4
 
       - name: Compress Allure report
         run: |
