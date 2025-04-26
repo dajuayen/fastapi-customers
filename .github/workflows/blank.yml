@@ -35,6 +35,19 @@ jobs:
       - name: Install Python dependencies
         uses: py-actions/py-dependency-install@v4
 
+      - name: Install tree
+        run: |
+          sudo apt-get install -y tree
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [ "3.8", "3.9", "3.10" ]
+
+    steps:
       - name: Run Pytest
         run: |
           pytest test/*/*.py
@@ -47,6 +60,15 @@ jobs:
         run: |
           coverage report
 
+  allure:
+    runs-on: ubuntu-latest
+    needs: [build,test]
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [ "3.8", "3.9", "3.10" ]
+
+    steps:
       - name: Upload test report history
         uses: actions/checkout@v4
         if: always()
@@ -64,11 +86,23 @@ jobs:
           allure_history: allure/${{ matrix.python-version }}/history
           allure_report: allure/${{ matrix.python-version }}/report
 
-      - name: Install tree and show folder structure
+      - name: Show folder structure
         run: |
-          sudo apt-get update
-          sudo apt-get install -y tree
           tree -L 4
+
+      - name: Verify directory permissions
+        run: |
+          ls -ld allure/${{ matrix.python-version }}
+          ls -l allure/${{ matrix.python-version }}
+
+      - name: Set permissions in Allure report directory
+        run: |
+          chmod -R u+rwX,go+rwX allure/${{ matrix.python-version }}
+
+      - name: Verify directory permissions again
+        run: |
+          ls -ld allure/${{ matrix.python-version }}
+          ls -l allure/${{ matrix.python-version }}
 
       - name: Compress Allure report
         run: |
@@ -77,6 +111,7 @@ jobs:
             rm "$ZIP_PATH"
           fi
           zip -r "$ZIP_PATH" allure/${{ matrix.python-version }}/report
+          echo "Allure report zipped to $ZIP_PATH"
 
       - name: Upload report as artifact
         uses: actions/upload-artifact@v4
