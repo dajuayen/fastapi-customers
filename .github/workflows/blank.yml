@@ -41,33 +41,11 @@ jobs:
 
       - name: Run Pytest
         run: |
-          pytest test/*/*.py --alluredir=allure-results
-      - name: Run Coverage
-        run: |
-          coverage run -m pytest test/*/*.py
+          pytest --cov=. --alluredir=allure-results test/*/*.py
 
       - name: Run Coverage Report
         run: |
           coverage report
-
-      - name: Show folder structure
-        if: always()
-        run: |
-          tree -L 4
-
-      - name: Verify directory permissions
-        run: |
-          ls -ld allure/${{ matrix.python-version }}
-          ls -l allure/${{ matrix.python-version }}
-
-      - name: Set permissions in Allure report directory
-        run: |
-          sudo chmod -R u+rwX,go+rwX allure/${{ matrix.python-version }}
-
-      - name: Verify directory permissions again
-        run: |
-          ls -ld allure/${{ matrix.python-version }}
-          ls -l allure/${{ matrix.python-version }}
 
       - name: Get Allure history
         uses: actions/checkout@v4
@@ -76,11 +54,6 @@ jobs:
         with:
           ref: gh-pages
           path: gh-pages
-
-      - name: Show folder structure
-        if: always()
-        run: |
-          tree -L 4
 
       - name: Generate test report
         uses: simple-elf/allure-report-action@v1.7
