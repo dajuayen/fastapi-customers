@@ -41,8 +41,7 @@ jobs:
 
       - name: Run Pytest
         run: |
-          pytest test/*/*.py
-
+          pytest test/*/*.py --alluredir=allure-results
       - name: Run Coverage
         run: |
           coverage run -m pytest test/*/*.py
@@ -50,14 +49,6 @@ jobs:
       - name: Run Coverage Report
         run: |
           coverage report
-
-      - name: Create Allure directory if it doesn't exist
-        run: |
-          FOLDER_PATH="allure/${{ matrix.python-version }}"
-          if [ ! -d "$FOLDER_PATH" ]; then
-            mkdir -p "$FOLDER_PATH"
-            echo "Folder $FOLDER_PATH created"
-          fi
 
       - name: Show folder structure
         if: always()
@@ -105,18 +96,18 @@ jobs:
 
       - name: Compress Allure report
         run: |
-          ZIP_PATH="allure/${{ matrix.python-version }}/allure-report.zip"
+          ZIP_PATH="allure-report_${{ matrix.python-version }}_${{ github.run_number }}.zip"
           if [ -f "$ZIP_PATH" ]; then
             rm "$ZIP_PATH"
           fi
-          zip -r "$ZIP_PATH" allure/${{ matrix.python-version }}/report
+          zip -r "$ZIP_PATH" allure-report
           echo "Allure report zipped to $ZIP_PATH"
 
       - name: Upload report as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: allure-report-${{ matrix.python-version }}
-          path: allure/${{ matrix.python-version }}/allure-report.zip
+          name: allure-report-${{ matrix.python-version }}_${{ github.run_number }}
+          path: allure-report_${{ matrix.python-version }}_${{ github.run_number }}.zip
 
       - name: Deploy test report
         uses: peaceiris/actions-gh-pages@v4
@@ -125,7 +116,7 @@ jobs:
           github_token: ${{ secrets.GH_TOKEN }}
           publish_branch: gh-pages
           publish_dir: ./allure
-          commit_message: deploy ${{ matrix.python-version }} - ${{ steps.prepare_message.outputs.DEPLOY_COMMIT_MSG }}
+          commit_message: deploy ${{ matrix.python-version }} - ${{ github.run_number }}
 
       - name: Post the link to the report
         if: always()
