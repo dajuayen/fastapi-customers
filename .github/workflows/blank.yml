@@ -79,7 +79,7 @@ jobs:
 
       - name: Set permissions in Allure report directory
         run: |
-          chmod -R u+rwX,go+rwX allure/${{ matrix.python-version }}
+          sudo chmod -R u+rwX,go+rwX allure/${{ matrix.python-version }}
 
       - name: Verify directory permissions again
         run: |
