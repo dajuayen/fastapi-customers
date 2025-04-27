@@ -4,11 +4,9 @@ name: CI
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main, staging, develop ]
+  # Triggers the workflow on pull request events but only for the main, staging, and develop branches
   pull_request:
-    branches: [ main, staging ]
+    branches: [ main, staging, develop ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -16,9 +14,12 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  test:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    concurrency:
+      group: deploy-allure-report
+      cancel-in-progress: false
     strategy:
       fail-fast: false
       matrix:
@@ -26,9 +27,10 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python c
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
@@ -36,14 +38,67 @@ jobs:
       - name: Install Python dependencies
         uses: py-actions/py-dependency-install@v4
 
+      - name: Install tree
+        run: |
+          sudo apt-get install -y tree
+
       - name: Run Pytest
         run: |
-          pytest test/*/*.py
-
-      - name: Run Coverage
-        run: |
-          coverage run -m pytest test/*/*.py
+          pytest --cov=. --alluredir=allure-results test/*/*.py
 
       - name: Run Coverage Report
         run: |
           coverage report
+
+      - name: Get Allure history
+        uses: actions/checkout@v4
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Generate test report
+        uses: simple-elf/allure-report-action@v1.7
+        if: always()
+        with:
+          subfolder: allure/${{ matrix.python-version }}
+          keep_reports: 7
+
+      - name: Show folder structure
+        if: always()
+        run: |
+          tree -L 4
+
+      - name: Compress Allure report
+        run: |
+          ZIP_PATH="allure-report_${{ matrix.python-version }}_${{ github.run_number }}.zip"
+          if [ -f "$ZIP_PATH" ]; then
+            rm "$ZIP_PATH"
+          fi
+          zip -r "$ZIP_PATH" allure-report
+          echo "Allure report zipped to $ZIP_PATH"
+
+      - name: Upload report as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report-${{ matrix.python-version }}_${{ github.run_number }}
+          path: allure-report_${{ matrix.python-version }}_${{ github.run_number }}.zip
+
+      - name: Deploy test report
+        uses: peaceiris/actions-gh-pages@v4
+        if: always()
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          publish_dir: ./allure-history
+          commit_message: deploy ${{ matrix.python-version }} - ${{ github.run_number }}
+
+      - name: Post the link to the report
+        if: always()
+        uses: Sibz/github-status-action@v1
+        with:
+          authToken: ${{secrets.GH_TOKEN}}
+          context: 'Test report'
+          state: 'success'
+          sha: ${{ github.event.pull_request.head.sha }}
+          target_url: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/allure/${{ matrix.python-version }}
