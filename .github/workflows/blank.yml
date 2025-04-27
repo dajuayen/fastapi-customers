@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     concurrency:
       group: deploy-allure-report
-      cancel-in-progress: false
+      cancel-in-progress: true
     strategy:
       fail-fast: false
       matrix:
