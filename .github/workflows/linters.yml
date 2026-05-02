@@ -25,9 +25,9 @@ jobs:
       with:
         update-pip: "false"
 
+    - name: Run Ruff
+      run: ruff check --output-format=github .
+
     - name: Analysing the code with pylint
       run: |
         pylint $(git ls-files '*.py')
-
-    - name: Run Ruff
-      run: ruff check --output-format=github .
