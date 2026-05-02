@@ -10,8 +10,8 @@ click==8.0.3
 coverage==6.3.1
 cryptography==36.0.1
 ecdsa==0.17.0
-ecs-logging==1.1.0
-elastic-apm==6.7.2
+ecs-logging>=2.0.0
+elastic-apm>=6.24.1
 fastapi==0.71.0
 greenlet==1.1.2
 h11==0.12.0
@@ -59,7 +59,7 @@ uvicorn==0.16.0
 uvloop==0.16.0
 watchgod==0.7
 websockets==10.1
-wrapt==1.13.3
+wrapt==2.0.1
 pre-commit==3.5.0
 ruff==0.11.5
 black==24.8.0

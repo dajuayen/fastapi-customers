@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 
 from config.database import get_db
 from config.hasher import get_access_token
+from config.logger import logger
 from models.token import Token
 from controllers.security import SecurityController
 
@@ -27,6 +28,7 @@ async def login_for_access_token(
     Returns: dict
     {"access_token": access_token, "token_type": "bearer"}
     """
+    logger.info("POST /token login=%s", form_data.username)
     controller = SecurityController(session)
     user = controller.authenticate_user(form_data.username, form_data.password)
     if not user:
@@ -36,4 +38,5 @@ async def login_for_access_token(
             headers={"WWW-Authenticate": "Bearer"},
         )
     access_token = await get_access_token(user)
+    logger.info("POST /token token emitido login=%s", form_data.username)
     return {"access_token": access_token, "token_type": "bearer"}

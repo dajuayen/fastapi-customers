@@ -18,6 +18,10 @@ class Settings(BaseSettings):
     db_host: str = os.getenv("DB_HOST")
     db_port: str = os.getenv("DB_PORT")
 
+    ELASTIC_APM_SERVER_URL = os.getenv("ELASTIC_APM_SERVER_URL")
+    ELASTIC_APM_SERVICE_NAME = os.getenv("ELASTIC_APM_SERVICE_NAME")
+    ELASTIC_APM_ENVIRONMENT = os.getenv("ELASTIC_APM_ENVIRONMENT")
+
     @property
     def path_base(self):
         """Get project's main folder url.

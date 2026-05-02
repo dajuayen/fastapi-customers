@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session, Query
 
 from config.database import Base
+from config.logger import logger
 
 
 class Controller(ABC):
@@ -41,8 +42,15 @@ class Controller(ABC):
             identifier: id (int)
         Returns: result statement
         """
+        logger.info("Eliminar %s id=%s", self.in_cls.__name__, identifier)
         result = self.query.filter_by(id=identifier).delete()
         self.session.commit()
+        logger.info(
+            "Eliminado %s id=%s filas=%s",
+            self.in_cls.__name__,
+            identifier,
+            result,
+        )
         return result
 
     @abstractmethod
@@ -53,11 +61,17 @@ class Controller(ABC):
             object.
         Returns: Schema of the created object.
         """
+        logger.info("Crear %s", self.in_cls.__name__)
         db_object = self.in_cls(**schema.dict())
         assert isinstance(db_object, self.in_cls)
         self.session.add(db_object)
         self.session.commit()
         self.session.refresh(db_object)
+        logger.info(
+            "Creado %s id=%s",
+            self.in_cls.__name__,
+            getattr(db_object, "id", None),
+        )
         return db_object
 
     @abstractmethod
@@ -67,8 +81,19 @@ class Controller(ABC):
             schema: Schema with the modifiable fields of the object.
         Returns: result statement.
         """
+        logger.info(
+            "Actualizar %s id=%s",
+            self.in_cls.__name__,
+            getattr(schema, "id", None),
+        )
         result = self.query.filter_by(id=schema.id).update(schema.dict())
         self.session.commit()
+        logger.info(
+            "Actualizado %s id=%s filas=%s",
+            self.in_cls.__name__,
+            schema.id,
+            result,
+        )
         if result:
             return schema
         return result

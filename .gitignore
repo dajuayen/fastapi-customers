@@ -67,3 +67,8 @@ docs/_build/
 
 # PyTest
 .pytest_cache/
+
+# Environment variables
+.env
+.env.*
+!.env.example
