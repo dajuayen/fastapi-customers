@@ -22,6 +22,8 @@ class Settings(BaseSettings):
     ELASTIC_APM_SERVICE_NAME = os.getenv("ELASTIC_APM_SERVICE_NAME")
     ELASTIC_APM_ENVIRONMENT = os.getenv("ELASTIC_APM_ENVIRONMENT")
 
+    SQLALCHEMY_POSTGRES_URL = os.getenv("POSTGRES_URL")
+
     @property
     def path_base(self):
         """Get project's main folder url.
@@ -35,6 +37,13 @@ class Settings(BaseSettings):
             contenido = os.listdir(path_aux.as_posix())
             founded = ".env" in contenido and "config" in contenido
         return path_aux.as_posix()
+
+    @property
+    def SQLALCHEMY_SQLITE_URL(self):
+        """Get SQLAlchemy connection url.
+        Returns: str
+        """
+        return f"sqlite:///{self.path_base}/{os.getenv('SQLITE_FILE_URL')}"
 
 
 settings = Settings()
