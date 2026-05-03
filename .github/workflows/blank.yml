@@ -59,7 +59,7 @@ jobs:
           path: gh-pages
 
       - name: Generate test report
-        uses: simple-elf/allure-report-action@v1.7
+        uses: simple-elf/allure-report-action@v1.13
         if: always()
         with:
           subfolder: allure/${{ matrix.python-version }}

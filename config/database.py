@@ -4,14 +4,11 @@ from sqlalchemy.orm import sessionmaker
 
 from config.settings import settings
 
-SQLALCHEMY_SQLITE_URL = f"sqlite:///{settings.path_base}/sql_app.db"
-SQLALCHEMY_POSTGRES_URL = "postgresql://admin:admin@localhost:5432/customers_db"
-
 
 def _get_url(env):
     if env == "postgres":
-        return SQLALCHEMY_POSTGRES_URL
-    return SQLALCHEMY_SQLITE_URL
+        return settings.SQLALCHEMY_POSTGRES_URL
+    return settings.SQLALCHEMY_SQLITE_URL
 
 
 def _get_engine_attrs(env):

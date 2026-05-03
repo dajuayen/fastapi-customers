@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 
 from config.database import get_db
 from config.hasher import oauth2_scheme, get_user_from_token
+from config.logger import logger
 from models.user import User
 
 
@@ -27,9 +28,16 @@ async def get_current_user(
     try:
         user = get_user_from_token(token, session)
         if user is None:
+            logger.warning("Credenciales: usuario no resuelto desde token")
             raise credentials_exception
         return user
+    except HTTPException:
+        raise
     except Exception as credential_error:
+        logger.warning(
+            "Credenciales: fallo validación JWT (%s)",
+            type(credential_error).__name__,
+        )
         raise credentials_exception from credential_error
 
 
@@ -41,7 +49,11 @@ async def get_current_active_user(
         current_user: User
     Returns: boolean
     """
-    if current_user.disabled:
+    if not current_user.is_active:
+        logger.warning(
+            "Usuario inactivo (borrado lógico) id=%s",
+            current_user.id,
+        )
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
 
@@ -55,5 +67,9 @@ async def get_current_user_permisions(
     Returns: boolean
     """
     if current_user.role == "user":
+        logger.warning(
+            "Permisos denegados: rol user id=%s",
+            getattr(current_user, "id", None),
+        )
         raise HTTPException(status_code=400, detail="User has not permission")
     return current_user
