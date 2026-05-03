@@ -14,7 +14,6 @@ from routers import customers, users, securities
 
 app = FastAPI()
 
-apm_client = None
 if settings.ELASTIC_APM_ENABLED:
     apm_client = get_client()
     if apm_client is None:
