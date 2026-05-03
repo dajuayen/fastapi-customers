@@ -45,6 +45,7 @@ class LogConfig(BaseModel):
     }
 
     def get_config(self):
+        """Get logging configuration"""
         return {
             "version": self.version,
             "disable_existing_loggers": self.disable_existing_loggers,

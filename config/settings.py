@@ -39,7 +39,7 @@ class Settings(BaseSettings):
         return path_aux.as_posix()
 
     @property
-    def SQLALCHEMY_SQLITE_URL(self):
+    def SQLALCHEMY_SQLITE_URL(self):  # pylint: disable=C0103
         """Get SQLAlchemy connection url.
         Returns: str
         """
