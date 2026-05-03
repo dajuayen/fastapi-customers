@@ -1,0 +1,12 @@
+INFO:     | 03-05-2026 14:16:32 | [customers-api.login_for_access_token] | POST /token login=admin
+INFO:     | 03-05-2026 14:16:33 | [customers-api.authenticate_user] | Autenticación correcta login=admin id=2
+INFO:     | 03-05-2026 14:16:33 | [customers-api.login_for_access_token] | POST /token token emitido login=admin
+INFO:     | 03-05-2026 14:16:33 | [customers-api.create] | POST /users login=nuevo
+INFO:     | 03-05-2026 14:16:33 | [customers-api.create] | UserController.create login=nuevo
+INFO:     | 03-05-2026 14:16:33 | [customers-api._create_user] | Crear usuario login=nuevo
+INFO:     | 03-05-2026 14:16:33 | [customers-api._create_user] | Usuario creado id=5
+INFO:     | 03-05-2026 14:16:33 | [customers-api.create] | POST /users creado id=5
+INFO:     | 03-05-2026 14:16:33 | [customers-api.delete] | DELETE /users/5
+INFO:     | 03-05-2026 14:16:33 | [customers-api.delete] | Eliminar User id=5
+INFO:     | 03-05-2026 14:16:33 | [customers-api.delete] | Eliminado User id=5 filas=1
+INFO:     | 03-05-2026 14:16:33 | [customers-api.delete] | DELETE /users completado id=5 filas_afectadas=1
