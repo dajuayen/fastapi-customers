@@ -1,0 +1,2 @@
+INFO:     | 03-05-2026 12:53:44 | [customers-api.main] | GET / 
+INFO:     | 03-05-2026 12:53:44 | [customers-api.main] | GET / completado

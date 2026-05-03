@@ -1,0 +1,4 @@
+INFO:     | 03-05-2026 12:53:40 | [customers-api.login_for_access_token] | POST /token login=primero
+INFO:     | 03-05-2026 12:53:40 | [customers-api.authenticate_user] | Autenticación correcta login=primero id=3
+INFO:     | 03-05-2026 12:53:40 | [customers-api.login_for_access_token] | POST /token token emitido login=primero
+INFO:     | 03-05-2026 12:53:40 | [customers-api.read] | GET /customers/1
