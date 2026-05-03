@@ -1,4 +1,5 @@
-import logging
+import logging.config
+import os
 
 from pydantic import BaseModel
 
@@ -8,15 +9,12 @@ from config.settings import settings
 class LogConfig(BaseModel):
     """Logging configuration to be set for the server"""
 
-    # Debe coincidir con el nombre del logger global (handlers ECS + ElasticAPM).
     LOGGER_NAME: str = settings.ELASTIC_APM_SERVICE_NAME or "customers"
-
     LOG_FORMAT: str = (
         "%(levelprefix)s | %(asctime)s | [%(name)s.%(funcName)s] | %(message)s"
     )
     LOG_LEVEL: str = "INFO"
 
-    # Logging config (consola + envío ECS al agente APM vía LoggingHandler).
     version: int = 1
     disable_existing_loggers: bool = False
 
@@ -27,7 +25,7 @@ class LogConfig(BaseModel):
             "datefmt": "%d-%m-%Y %H:%M:%S",
         },
         "ecs": {
-            "()": "ecs_logging.StdlibFormatter",  # Formato JSON que entiende Elastic [3]
+            "()": "ecs_logging.StdlibFormatter",
         },
     }
 
@@ -40,12 +38,18 @@ class LogConfig(BaseModel):
         "elasticapm": {
             "level": "INFO",
             "class": "elasticapm.handlers.logging.LoggingHandler",
-            "formatter": "ecs",  # Aplica el formato ECS aquí
+            "formatter": "ecs",
         },
     }
 
     def get_config(self):
         """Get logging configuration"""
+        # Determinar qué handlers usar según si APM está habilitado
+        apm_enabled = os.getenv("ELASTIC_APM_ENABLED", "true").lower() == "true"
+        handlers_list = ["default"]
+        if apm_enabled:
+            handlers_list.append("elasticapm")
+
         return {
             "version": self.version,
             "disable_existing_loggers": self.disable_existing_loggers,
@@ -53,7 +57,7 @@ class LogConfig(BaseModel):
             "handlers": self.handlers,
             "loggers": {
                 self.LOGGER_NAME: {
-                    "handlers": ["default", "elasticapm"],
+                    "handlers": handlers_list,  # ← Solo agrega elasticapm si está habilitado
                     "level": self.LOG_LEVEL,
                     "propagate": False,
                 },
@@ -61,6 +65,6 @@ class LogConfig(BaseModel):
         }
 
 
-logging_config = LogConfig()
-logging.config.dictConfig(logging_config.get_config())
-logger = logging.getLogger(logging_config.LOGGER_NAME)
+loging_config = LogConfig()
+logging.config.dictConfig(loging_config.get_config())
+logger = logging.getLogger(loging_config.LOGGER_NAME)

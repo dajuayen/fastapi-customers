@@ -1,12 +1,12 @@
+import os
 from typing import Generator
 
+import pytest
+from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.dialects.postgresql import Any
 from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy_utils import database_exists, create_database, drop_database
-
-import pytest
-from fastapi.testclient import TestClient
 
 from config.database import Base, get_db
 from config.hasher import get_password_hash
@@ -15,6 +15,7 @@ from main import app
 from models.customer import Customer, CustomerSchema, CustomerCreateSchema
 from models.user import User, UserSchema, UserCreateSchema
 
+os.environ["ELASTIC_APM_ENABLED"] = "false"
 SQLALCHEMY_DATABASE_URL = f"sqlite:///{settings.path_base}/test.db"
 
 engine = create_engine(
