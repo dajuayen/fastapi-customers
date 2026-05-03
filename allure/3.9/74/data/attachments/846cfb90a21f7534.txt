@@ -1,0 +1,3 @@
+INFO:     | 03-05-2026 14:12:13 | [customers-api.login_for_access_token] | POST /token login=root
+INFO:     | 03-05-2026 14:12:13 | [customers-api.authenticate_user] | Autenticación correcta login=root id=1
+INFO:     | 03-05-2026 14:12:13 | [customers-api.login_for_access_token] | POST /token token emitido login=root

@@ -1,0 +1,4 @@
+INFO:     | 03-05-2026 14:12:09 | [customers-api.login_for_access_token] | POST /token login=admin
+INFO:     | 03-05-2026 14:12:09 | [customers-api.authenticate_user] | Autenticación correcta login=admin id=2
+INFO:     | 03-05-2026 14:12:09 | [customers-api.login_for_access_token] | POST /token token emitido login=admin
+INFO:     | 03-05-2026 14:12:09 | [customers-api.read] | GET /customers/1
