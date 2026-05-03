@@ -1,1 +1,0 @@
-{"total":2,"items":[{"uid":"7889af103f4de352e1e694005eee3170","name":"test.routers","statistic":{"failed":0,"broken":0,"skipped":0,"passed":28,"unknown":0,"total":28}},{"uid":"1d783cd87f4546cd94a3f67dad890ac1","name":"test.controllers","statistic":{"failed":0,"broken":0,"skipped":0,"passed":1,"unknown":0,"total":1}}]}
