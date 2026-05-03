@@ -1,0 +1,109 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"Find customer by name and surname.
+        Args:
+            test_db_session: Session
+        ","3","test_get_by_name_surname","test.controllers","Sun May 03 14:10:50 UTC 2026","passed","Sun May 03 14:10:50 UTC 2026","TestCustomerController","customer","",""
+"Check that 401 status code was returned when the user doesn't exist.","53","test_login_non_user","test.routers","Sun May 03 14:10:57 UTC 2026","passed","Sun May 03 14:10:57 UTC 2026","TestTokenRouter","test_securities","",""
+"Check to create a user. After check to delete the created user.
+        Args:
+            new_user: schema
+            client: testClient
+            login_admin: authorization
+        ","445","test_create_delete_customer[login_admin]","test.routers","Sun May 03 14:10:54 UTC 2026","passed","Sun May 03 14:10:55 UTC 2026","TestCustomersRouter","test_customers","",""
+"Find a admin user.
+        Args:
+            admin: schema
+            client: testClient
+            login_admin: authorization
+        ","32","test_get_admin","test.routers","Sun May 03 14:10:57 UTC 2026","passed","Sun May 03 14:10:57 UTC 2026","TestUsersRouter","test_users","",""
+"Check to create a user. After check to delete the created user.
+        Args:
+            new_user: schema
+            client: testClient
+            login_admin: authorization
+        ","441","test_create_delete_customer[login_user]","test.routers","Sun May 03 14:10:55 UTC 2026","passed","Sun May 03 14:10:55 UTC 2026","TestCustomersRouter","test_customers","",""
+"Check that it returns data from a customer if the user, be it a
+        basic user or admin, is logged in.
+        ","334","test_get_customer_login[customer1-login_admin]","test.routers","Sun May 03 14:10:51 UTC 2026","passed","Sun May 03 14:10:51 UTC 2026","TestCustomersRouter","test_customers","",""
+"Check to update a user.
+        Args:
+            customer: schema
+            client: testClient
+            login_admin: authorization
+        ","469","test_update_customer[customer1-login_user]","test.routers","Sun May 03 14:10:53 UTC 2026","passed","Sun May 03 14:10:53 UTC 2026","TestCustomersRouter","test_customers","",""
+"Check that an access_token is returned when logging in and
+        that it is of type bearer.
+        ","307","test_login_user","test.routers","Sun May 03 14:10:56 UTC 2026","passed","Sun May 03 14:10:56 UTC 2026","TestTokenRouter","test_securities","",""
+"Check that you can access the list of customers as an admin user.","52","test_customers_login_admin","test.routers","Sun May 03 14:10:51 UTC 2026","passed","Sun May 03 14:10:51 UTC 2026","TestCustomersRouter","test_customers","",""
+"Check that without being logged in you cannot access /customers.","7","test_customers_wo_login","test.routers","Sun May 03 14:10:50 UTC 2026","passed","Sun May 03 14:10:50 UTC 2026","TestCustomersRouter","test_customers","",""
+"Check that you can access the list of customers as a basic user.","51","test_customers_login_user","test.routers","Sun May 03 14:10:51 UTC 2026","passed","Sun May 03 14:10:51 UTC 2026","TestCustomersRouter","test_customers","",""
+"Check that it returns data from a customer if the user, be it a
+        basic user or admin, is logged in.
+        ","334","test_get_customer_login[customer3-login_admin]","test.routers","Sun May 03 14:10:52 UTC 2026","passed","Sun May 03 14:10:52 UTC 2026","TestCustomersRouter","test_customers","",""
+"Check to update a user.
+        Args:
+            customer: schema
+            client: testClient
+            login_admin: authorization
+        ","468","test_update_customer[customer3-login_user]","test.routers","Sun May 03 14:10:54 UTC 2026","passed","Sun May 03 14:10:54 UTC 2026","TestCustomersRouter","test_customers","",""
+"Check that 401 status code was returned when the password was wrong.","285","test_login_password_fail","test.routers","Sun May 03 14:10:56 UTC 2026","passed","Sun May 03 14:10:57 UTC 2026","TestTokenRouter","test_securities","",""
+"Check that you have to be logged in to retrieve a customer's data.","3","test_get_customer_wo_login[customer3]","test.routers","Sun May 03 14:10:51 UTC 2026","passed","Sun May 03 14:10:51 UTC 2026","TestCustomersRouter","test_customers","",""
+"Check to update a user.
+        Args:
+            customer: schema
+            client: testClient
+            login_admin: authorization
+        ","468","test_update_customer[customer3-login_admin]","test.routers","Sun May 03 14:10:53 UTC 2026","passed","Sun May 03 14:10:54 UTC 2026","TestCustomersRouter","test_customers","",""
+"Check to update a user.
+        Args:
+            customer: schema
+            client: testClient
+            login_admin: authorization
+        ","477","test_update_customer[customer1-login_admin]","test.routers","Sun May 03 14:10:52 UTC 2026","passed","Sun May 03 14:10:53 UTC 2026","TestCustomersRouter","test_customers","",""
+"Check to create a user. After check to delete the created user.
+        Args:
+            new_user: schema
+            client: testClient
+            login_admin: authorization
+        ","302","test_create_delete_user","test.routers","Sun May 03 14:10:58 UTC 2026","passed","Sun May 03 14:10:58 UTC 2026","TestUsersRouter","test_users","",""
+"Check to update a user without logging it's not posible.
+        Args:
+            customer: schema
+            client: testClient
+            login_admin: authorization
+        ","3","test_update_customer_wo_login[customer3]","test.routers","Sun May 03 14:10:54 UTC 2026","passed","Sun May 03 14:10:54 UTC 2026","TestCustomersRouter","test_customers","",""
+"Check to update a user without logging it's not posible.
+        Args:
+            customer: schema
+            client: testClient
+            login_admin: authorization
+        ","4","test_update_customer_wo_login[customer1]","test.routers","Sun May 03 14:10:54 UTC 2026","passed","Sun May 03 14:10:54 UTC 2026","TestCustomersRouter","test_customers","",""
+"Find a user.
+        Args:
+            user: schema
+            client: testClient
+            login_admin: authorization
+        ","30","test_get_user","test.routers","Sun May 03 14:10:58 UTC 2026","passed","Sun May 03 14:10:58 UTC 2026","TestUsersRouter","test_users","",""
+"Check that an access_token is returned when logging in and
+        that it is of type bearer.
+        ","308","test_login_root","test.routers","Sun May 03 14:10:55 UTC 2026","passed","Sun May 03 14:10:56 UTC 2026","TestTokenRouter","test_securities","",""
+"Check that you have to be logged in to retrieve a customer's data.","4","test_get_customer_wo_login[customer1]","test.routers","Sun May 03 14:10:51 UTC 2026","passed","Sun May 03 14:10:51 UTC 2026","TestCustomersRouter","test_customers","",""
+"Check that it returns data from a customer if the user, be it a
+        basic user or admin, is logged in.
+        ","335","test_get_customer_login[customer3-login_user]","test.routers","Sun May 03 14:10:52 UTC 2026","passed","Sun May 03 14:10:52 UTC 2026","TestCustomersRouter","test_customers","",""
+"Check that an access_token is returned when logging in and
+        that it is of type bearer.
+        ","306","test_login_admin","test.routers","Sun May 03 14:10:56 UTC 2026","passed","Sun May 03 14:10:56 UTC 2026","TestTokenRouter","test_securities","",""
+"Check to update a user.
+        Args:
+            user: schema
+            client: testClient
+            login_admin: authorization
+        ","170","test_update_user","test.routers","Sun May 03 14:10:59 UTC 2026","passed","Sun May 03 14:10:59 UTC 2026","TestUsersRouter","test_users","",""
+"Check that an access_token is returned when logging in and
+        that it is of type bearer.
+        ","35","test_users","test.routers","Sun May 03 14:10:57 UTC 2026","passed","Sun May 03 14:10:57 UTC 2026","TestUsersRouter","test_users","",""
+"Test main endpoint","24","test_read_main","test.routers","Sun May 03 14:10:55 UTC 2026","passed","Sun May 03 14:10:55 UTC 2026","","test_main","",""
+"Check that it returns data from a customer if the user, be it a
+        basic user or admin, is logged in.
+        ","333","test_get_customer_login[customer1-login_user]","test.routers","Sun May 03 14:10:51 UTC 2026","passed","Sun May 03 14:10:52 UTC 2026","TestCustomersRouter","test_customers","",""

@@ -1,0 +1,9 @@
+INFO:     | 03-05-2026 14:10:54 | [customers-api.login_for_access_token] | POST /token login=primero
+INFO:     | 03-05-2026 14:10:54 | [customers-api.authenticate_user] | Autenticación correcta login=primero id=3
+INFO:     | 03-05-2026 14:10:54 | [customers-api.login_for_access_token] | POST /token token emitido login=primero
+INFO:     | 03-05-2026 14:10:54 | [customers-api.update] | PUT /customers id=3
+INFO:     | 03-05-2026 14:10:54 | [customers-api.update] | Actualizar Customer id=3
+INFO:     | 03-05-2026 14:10:54 | [customers-api.update] | Actualizado Customer id=3 filas=1
+INFO:     | 03-05-2026 14:10:54 | [customers-api.update] | PUT /customers id=3
+INFO:     | 03-05-2026 14:10:54 | [customers-api.update] | Actualizar Customer id=3
+INFO:     | 03-05-2026 14:10:54 | [customers-api.update] | Actualizado Customer id=3 filas=1
