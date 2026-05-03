@@ -83,3 +83,9 @@ docstring-code-format = false
 # This only has an effect when the `docstring-code-format` setting is
 # enabled.
 docstring-code-line-length = "dynamic"
+
+[tool.pytest_env]
+ELASTIC_APM_SERVER_URL="http://localhost:8200"
+ELASTIC_APM_SERVICE_NAME="customers-api"
+ELASTIC_APM_ENVIRONMENT="development"
+POSTGRES_URL="postgresql://postgres:postgres@localhost:5432/postgres"
